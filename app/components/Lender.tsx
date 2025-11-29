@@ -3,7 +3,11 @@
 import { useState } from "react";
 import PcpDropdown from "./PcpDropdown";
 
-export default function Lender() {
+interface LenderProps {
+  onViewLenders: () => void;
+}
+
+export default function Lender({ onViewLenders }: LenderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   return (
@@ -13,7 +17,10 @@ export default function Lender() {
           We will locate all of your vehicle finance agreements with the
           following 73 lenders.
         </p>
-        <button className="w-full bg-white text-gray-900 font-semibold py-3 px-4 rounded-lg mb-2 hover:bg-gray-50 transition">
+        <button 
+          onClick={onViewLenders}
+          className="w-full bg-white text-gray-900 font-semibold py-3 px-4 rounded-lg mb-2 hover:bg-gray-50 transition"
+        >
           View Lenders
         </button>
         <button
