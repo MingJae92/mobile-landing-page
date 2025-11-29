@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import PcpDropdown from "./PcpDropdown";
 
-interface LenderProps {
-  onViewLenders: () => void;
-}
-
-export default function Lender({ onViewLenders }: LenderProps) {
+export default function Lender() {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <div className="mb-4">
@@ -18,7 +16,7 @@ export default function Lender({ onViewLenders }: LenderProps) {
           following 73 lenders.
         </p>
         <button 
-          onClick={onViewLenders}
+          onClick={() => router.push("/address")}
           className="w-full bg-white text-gray-900 font-semibold py-3 px-4 rounded-lg mb-2 hover:bg-gray-50 transition"
         >
           View Lenders
