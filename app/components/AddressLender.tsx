@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import RegulatorInfo from "./RegulatorInfo";
@@ -10,8 +10,12 @@ export default function AddressLender() {
   const [postcode, setPostcode] = useState<string>("");
   const [addressFieldsVisible, setAddressFieldsVisible] = useState<boolean>(false);
 
+  const handlePostcodeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPostcode(e.target.value);
+  };
+
   const handleSearch = () => {
-    if (postcode.trim()) {
+    if (postcode.trim().length > 0) {
       setAddressFieldsVisible(true);
     }
   };
@@ -39,7 +43,7 @@ export default function AddressLender() {
               </p>
             </div>
             <div className="flex-shrink-0 ml-3 sm:ml-4">
-              <svg className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20" viewBox="0 0 100 100" fill="none">
+              <svg className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20" viewBox="0 0 100 100" fill="none" aria-hidden>
                 <rect x="20" y="40" width="60" height="50" fill="#ff1744" />
                 <rect x="20" y="40" width="60" height="10" fill="#d50000" />
                 <rect x="42" y="60" width="16" height="30" fill="#00bcd4" />
@@ -58,7 +62,7 @@ export default function AddressLender() {
               type="text"
               placeholder="Postcode"
               value={postcode}
-              onChange={(e) => setPostcode(e.target.value)}
+              onChange={handlePostcodeChange}
               className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 rounded-lg text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
 
@@ -72,6 +76,7 @@ export default function AddressLender() {
                     : "bg-gray-400 text-white"
                 }
               `}
+              aria-pressed={addressFieldsVisible}
             >
               Search
             </button>
@@ -100,6 +105,19 @@ export default function AddressLender() {
                 placeholder="County"
                 className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
               />
+
+              {/* Instruction text exactly like the image */}
+              <p className="text-sm sm:text-base text-gray-700 pt-2">
+                Please check the details above are correct before continuing.
+              </p>
+
+              {/* Continue / Next button */}
+              <button
+                type="button"
+                className="w-full py-3 sm:py-4 bg-gray-400 text-white rounded-lg font-semibold text-sm sm:text-base"
+              >
+                Next &nbsp;›
+              </button>
             </div>
           )}
         </div>
