@@ -1,17 +1,31 @@
 "use client";
 
 import { useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation"; // ✅ import router
 import Header from "./Header";
 import Footer from "./Footer";
 import RegulatorInfo from "./RegulatorInfo";
 import PrivacyInfo from "./PrivacyInfo";
 
 export default function AddressLender() {
+  const router = useRouter(); // ✅ initialize router
+
   const [postcode, setPostcode] = useState<string>("");
   const [addressFieldsVisible, setAddressFieldsVisible] = useState<boolean>(false);
+  const [address, setAddress] = useState({
+    line1: "",
+    line2: "",
+    city: "",
+    county: "",
+  });
 
   const handlePostcodeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPostcode(e.target.value);
+  };
+
+  const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAddress((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSearch = () => {
@@ -19,6 +33,13 @@ export default function AddressLender() {
       setAddressFieldsVisible(true);
     }
   };
+
+  // ✅ Check if all address fields are filled
+  const isAddressReady =
+    address.line1.trim() &&
+    address.line2.trim() &&
+    address.city.trim() &&
+    address.county.trim();
 
   return (
     <div className="min-h-screen bg-white">
@@ -87,26 +108,38 @@ export default function AddressLender() {
             <div className="space-y-4 mt-4">
               <input
                 type="text"
+                name="line1"
                 placeholder="Address Line 1"
+                value={address.line1}
+                onChange={handleAddressChange}
                 className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
               />
               <input
                 type="text"
+                name="line2"
                 placeholder="Address Line 2"
+                value={address.line2}
+                onChange={handleAddressChange}
                 className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
               />
               <input
                 type="text"
+                name="city"
                 placeholder="Town/City"
+                value={address.city}
+                onChange={handleAddressChange}
                 className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
               />
               <input
                 type="text"
+                name="county"
                 placeholder="County"
+                value={address.county}
+                onChange={handleAddressChange}
                 className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
               />
 
-              {/* Instruction text exactly like the image */}
+              {/* Instruction text */}
               <p className="text-sm sm:text-base text-gray-700 pt-2">
                 Please check the details above are correct before continuing.
               </p>
@@ -114,7 +147,11 @@ export default function AddressLender() {
               {/* Continue / Next button */}
               <button
                 type="button"
-                className="w-full py-3 sm:py-4 bg-gray-400 text-white rounded-lg font-semibold text-sm sm:text-base"
+                disabled={!isAddressReady}
+                onClick={() => isAddressReady && router.push("/personal-details")} // ✅ navigate to next page
+                className={`w-full py-3 sm:py-4 rounded-lg font-semibold text-white text-sm sm:text-base
+                  ${isAddressReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"}
+                `}
               >
                 Next &nbsp;›
               </button>
