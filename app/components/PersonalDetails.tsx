@@ -51,8 +51,7 @@ export default function PersonalDetails() {
   return (
     <div className="min-h-screen bg-white">
       {/* HEADER */}
-      <Header/>
-      
+      <Header />
 
       {/* BANNER */}
       <div className="border-b px-4 py-2 text-sm flex items-center gap-2">
@@ -70,12 +69,12 @@ export default function PersonalDetails() {
           agreements attached to your name.
         </p>
 
-        {/* Title dropdown */}
+        {/* Title dropdown - shorter rectangle */}
         <select
           name="title"
           value={title}
           onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-3 mb-4 text-gray-900 bg-white"
+          className="w-24 border rounded-md px-3 py-3 mb-4 text-gray-900 bg-white text-sm"
         >
           <option value="">Title</option>
           <option value="Mr">Mr</option>
@@ -140,7 +139,7 @@ export default function PersonalDetails() {
         {/* Next button with routing */}
         <button
           disabled={!isFormReady}
-          onClick={() => isFormReady && router.push("/personal-details")} // ✅ navigate if ready
+          onClick={() => isFormReady && router.push("/address-page")} // navigate to address page
           className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-6
             ${isFormReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"}
           `}
@@ -155,21 +154,19 @@ export default function PersonalDetails() {
           <span className="text-gray-600 ml-1">4.6</span>
         </div>
 
-     
-
-        {/* Footer text */}
-         <div className="bg-white border-t pt-4 sm:pt-6 mb-4 sm:mb-6">
-          
-
+        {/* Average claim value */}
+        <div className="bg-white border-t pt-4 sm:pt-6 mb-4 sm:mb-6">
           <div className="text-center mb-4 sm:mb-6">
             <p className="text-xs sm:text-sm text-gray-600 mb-1">Average claim value:</p>
             <p className="text-xl sm:text-2xl font-bold text-gray-900">£5,318.25* per vehicle</p>
           </div>
         </div>
 
+        {/* Regulatory & Privacy Info */}
         <RegulatorInfo />
         <PrivacyInfo />
-       <Footer/>
+
+        <Footer />
       </main>
     </div>
   );
