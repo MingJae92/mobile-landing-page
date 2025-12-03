@@ -1,16 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import RegulatorInfo from "./RegulatorInfo";
 import PrivacyInfo from "./PrivacyInfo";
 
 export default function AddressLender() {
+  const [postcode, setPostcode] = useState<string>("");
+  const [addressFieldsVisible, setAddressFieldsVisible] = useState<boolean>(false);
+
+  const handleSearch = () => {
+    if (postcode.trim()) {
+      setAddressFieldsVisible(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* Mobile-optimized Main Content Wrapper */}
       <main className="max-w-md mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Info Banner */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b">
@@ -43,16 +52,56 @@ export default function AddressLender() {
             Enter your postcode and tap 'Search'.
           </p>
 
+          {/* INPUT + BUTTON */}
           <div className="flex gap-2 mb-4 sm:mb-6">
             <input
               type="text"
               placeholder="Postcode"
+              value={postcode}
+              onChange={(e) => setPostcode(e.target.value)}
               className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 rounded-lg text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
-            <button className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gray-400 text-white text-sm sm:text-base font-semibold rounded-full hover:bg-gray-500 transition whitespace-nowrap">
+
+            <button
+              onClick={handleSearch}
+              className={`
+                px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-full transition whitespace-nowrap
+                ${
+                  postcode.trim()
+                    ? "bg-[#FF004F] text-white"
+                    : "bg-gray-400 text-white"
+                }
+              `}
+            >
               Search
             </button>
           </div>
+
+          {/* ADDRESS FIELDS SHOWN AFTER SEARCH */}
+          {addressFieldsVisible && (
+            <div className="space-y-4 mt-4">
+              <input
+                type="text"
+                placeholder="Address Line 1"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+              />
+              <input
+                type="text"
+                placeholder="Address Line 2"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+              />
+              <input
+                type="text"
+                placeholder="Town/City"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+              />
+              <input
+                type="text"
+                placeholder="County"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+              />
+            </div>
+          )}
         </div>
 
         {/* Trust Section */}
@@ -74,10 +123,7 @@ export default function AddressLender() {
           </div>
         </div>
 
-        {/* Regulatory Info Component */}
         <RegulatorInfo />
-
-        {/* Privacy Info Component */}
         <PrivacyInfo />
       </main>
 
