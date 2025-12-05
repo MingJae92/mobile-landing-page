@@ -1,10 +1,13 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export default function ContactDetails() {
+  const router = useRouter();
+  
   // State types are inferred automatically, but can explicitly type them
   const [mobile, setMobile] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -15,6 +18,17 @@ export default function ContactDetails() {
   // Handle input change (optional helper)
   const handleMobileChange = (e: ChangeEvent<HTMLInputElement>) => setMobile(e.target.value);
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+
+  // Handle form submission
+  const handleSubmit = () => {
+    if (isReady) {
+      // You can store the data before navigating if needed
+      // localStorage.setItem('contactDetails', JSON.stringify({ mobile, email }));
+      
+      // Navigate to signature page
+      router.push("/signature");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -36,7 +50,7 @@ export default function ContactDetails() {
         </h1>
 
         <p className="text-gray-600 text-sm mb-6">
-          We will use these details to cross reference any car finance agreements you’ve had.
+          We will use these details to cross reference any car finance agreements you've had.
         </p>
 
         {/* Image of phone + email icon */}
@@ -77,9 +91,10 @@ export default function ContactDetails() {
         {/* BUTTON */}
         <button
           disabled={!isReady}
+          onClick={handleSubmit}
           className={`w-full py-3 rounded-lg font-semibold text-white text-base
             mb-8 flex items-center justify-center
-            ${isReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"}`}
+            ${isReady ? "bg-[#FF004F] hover:bg-[#E6004A] cursor-pointer" : "bg-gray-400 cursor-not-allowed"}`}
         >
           🔍 &nbsp; Find My Agreements
         </button>
@@ -99,7 +114,7 @@ export default function ContactDetails() {
 
         {/* LEGAL SECTION */}
         <p className="text-[11px] text-gray-600 leading-relaxed mb-6">
-          By clicking ‘Find My Agreements’, you agree to the Courmacs Legal Privacy Policy,
+          By clicking 'Find My Agreements', you agree to the Courmacs Legal Privacy Policy,
           consent to receiving marketing communications, and acknowledge that we will run a
           soft credit check (powered by Valid8 IP Ltd) to identify any potential car finance
           claims. These searches will not impact your credit score, but will verify any
@@ -119,7 +134,7 @@ export default function ContactDetails() {
         <p className="text-[11px] text-gray-600 leading-relaxed mb-6">
           PCP Pal is a trading style of Courmacs Legal Limited. Registered in England and
           Wales, Company No. 13185687. Authorised and regulated by the Solicitors Regulation
-          Authority (SRA) — SRA Reg No: 819044. Registered with the Information Commissioner’s
+          Authority (SRA) — SRA Reg No: 819044. Registered with the Information Commissioner's
           Office (ICO) — ICO Reg No: ZA886741.
         </p>
 
