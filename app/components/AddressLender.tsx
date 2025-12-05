@@ -6,6 +6,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import RegulatorInfo from "./RegulatorInfo";
 import PrivacyInfo from "./PrivacyInfo";
+import PostcodeInput from "./PostcodeInput";
+import AddressFields from "./AddressFields";
 
 export default function AddressLender() {
   const router = useRouter(); // ✅ initialize router
@@ -78,85 +80,23 @@ export default function AddressLender() {
           </p>
 
           {/* INPUT + BUTTON */}
-          <div className="flex gap-2 mb-4 sm:mb-6">
-            <input
-              type="text"
-              placeholder="Postcode"
-              value={postcode}
+          <div className="flex-1 max-w-md">
+            {/* Postcode Input */}
+            <PostcodeInput
+              postcode={postcode}
               onChange={handlePostcodeChange}
-              className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 rounded-lg text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              onSearch={handleSearch}
             />
 
-            <button
-              onClick={handleSearch}
-              className={`
-                px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-full transition whitespace-nowrap
-                ${
-                  postcode.trim()
-                    ? "bg-[#FF004F] text-white"
-                    : "bg-gray-400 text-white"
-                }
-              `}
-              aria-pressed={addressFieldsVisible}
-            >
-              Search
-            </button>
+
           </div>
 
           {/* ADDRESS FIELDS SHOWN AFTER SEARCH */}
+          {/* Address Fields */}
           {addressFieldsVisible && (
-            <div className="space-y-4 mt-4">
-              <input
-                type="text"
-                name="line1"
-                placeholder="Address Line 1"
-                value={address.line1}
-                onChange={handleAddressChange}
-                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
-              />
-              <input
-                type="text"
-                name="line2"
-                placeholder="Address Line 2"
-                value={address.line2}
-                onChange={handleAddressChange}
-                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
-              />
-              <input
-                type="text"
-                name="city"
-                placeholder="Town/City"
-                value={address.city}
-                onChange={handleAddressChange}
-                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
-              />
-              <input
-                type="text"
-                name="county"
-                placeholder="County"
-                value={address.county}
-                onChange={handleAddressChange}
-                className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
-              />
-
-              {/* Instruction text */}
-              <p className="text-sm sm:text-base text-gray-700 pt-2">
-                Please check the details above are correct before continuing.
-              </p>
-
-              {/* Continue / Next button */}
-              <button
-                type="button"
-                disabled={!isAddressReady}
-                onClick={() => isAddressReady && router.push("/personal-details")} // ✅ navigate to next page
-                className={`w-full py-3 sm:py-4 rounded-lg font-semibold text-white text-sm sm:text-base
-                  ${isAddressReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"}
-                `}
-              >
-                Next &nbsp;›
-              </button>
-            </div>
+            <AddressFields address={address} onChange={handleAddressChange} />
           )}
+
         </div>
 
         {/* Trust Section */}
