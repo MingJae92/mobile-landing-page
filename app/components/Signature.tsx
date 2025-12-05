@@ -1,7 +1,11 @@
+"use client";
+
 import { useState, useRef, MouseEvent, TouchEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import Header from './Header';
 
 export default function Signature() {
+  const router = useRouter();
   const [signature, setSignature] = useState<string>('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
@@ -55,6 +59,13 @@ export default function Signature() {
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setSignature('');
+  };
+
+  const handleSubmit = () => {
+    if (signature) {
+      // Navigate to claim success page
+      router.push('/claim-success');
+    }
   };
 
   const isReady: boolean = signature !== '';
@@ -144,8 +155,9 @@ export default function Signature() {
         {/* Submit Button */}
         <button
           disabled={!isReady}
+          onClick={handleSubmit}
           className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-6 flex items-center justify-center
-            ${isReady ? "bg-gray-400 hover:bg-gray-500" : "bg-gray-300 cursor-not-allowed"}`}
+            ${isReady ? "bg-gray-400 hover:bg-gray-500 cursor-pointer" : "bg-gray-300 cursor-not-allowed"}`}
         >
           <span className="mr-2">✓</span> Submit Claim & Reveal
         </button>

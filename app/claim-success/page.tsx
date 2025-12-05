@@ -1,14 +1,16 @@
 "use client";
 
-import Signature from "../components/Signature";
+import ClaimSuccess from "../components/ClaimSuccess";
+
+
 
 
 export default function AddressPage() {
   return (
     <div className="flex justify-center bg-white">
       <div className="w-full max-w-md">
-       <Signature/>
-    </div>
+        <ClaimSuccess />
+      </div>
     </div>
   );
 }
