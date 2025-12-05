@@ -1,4 +1,5 @@
 import { useState, useRef, MouseEvent, TouchEvent } from 'react';
+import Header from './Header';
 
 export default function Signature() {
   const [signature, setSignature] = useState<string>('');
@@ -61,28 +62,7 @@ export default function Signature() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* HEADER */}
-      <header className="flex items-center justify-between px-4 py-3 border-b">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-black flex items-center justify-center">
-            <span className="text-white font-bold text-sm">✓</span>
-          </div>
-          <span className="font-bold text-lg">PCPPal</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1">
-            <span className="text-green-600 text-xs">★</span>
-            <span className="font-bold text-xs">Trustpilot</span>
-          </div>
-          <div className="flex items-center gap-1 text-xs">
-            <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
-            </svg>
-            <span className="font-semibold">SECURE</span>
-            <span className="text-gray-600 text-[10px]">SSL ENCRYPTION</span>
-          </div>
-        </div>
-      </header>
-
+      <Header/>
       {/* Info Banner */}
       <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-sm">
         <span>👤</span>
