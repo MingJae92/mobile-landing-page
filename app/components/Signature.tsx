@@ -1,79 +1,51 @@
 "use client";
 
-import { useState, useRef, MouseEvent, TouchEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import Header from './Header';
+import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import SignaturePad from "react-signature-canvas";
+import Header from "./Header";
 
 export default function Signature() {
   const router = useRouter();
-  const [signature, setSignature] = useState<string>('');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState<boolean>(false);
+  const sigRef = useRef<SignaturePad>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isSigned, setIsSigned] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({ width: 400, height: 200 });
 
-  const startDrawing = (e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
-    setIsDrawing(true);
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    const rect = canvas.getBoundingClientRect();
-    const x = ('touches' in e ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = ('touches' in e ? e.touches[0].clientY : e.clientY) - rect.top;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  };
+  // Maintain 2:1 width to height ratio
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.clientWidth;
+        const height = width / 2; // 2:1 ratio
+        setCanvasSize({ width, height });
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
-  const draw = (e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {
-    if (!isDrawing) return;
-    e.preventDefault();
-    
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    const rect = canvas.getBoundingClientRect();
-    const x = ('touches' in e ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = ('touches' in e ? e.touches[0].clientY : e.clientY) - rect.top;
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    setSignature('signed');
-  };
-
-  const stopDrawing = () => {
-    setIsDrawing(false);
-  };
+  const handleEnd = () => setIsSigned(true);
 
   const resetSignature = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setSignature('');
+    sigRef.current?.clear();
+    setIsSigned(false);
   };
 
   const handleSubmit = () => {
-    if (signature) {
-      // Navigate to claim success page
-      router.push('/claim-success');
+    if (isSigned) {
+      const dataURL = sigRef.current?.toDataURL();
+      console.log("Signature image:", dataURL);
+      router.push("/claim-success");
     }
   };
-
-  const isReady: boolean = signature !== '';
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* HEADER */}
-      <Header/>
+      <Header />
+
       {/* Info Banner */}
       <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-sm">
         <span>👤</span>
@@ -84,7 +56,7 @@ export default function Signature() {
       <main className="flex-1 max-w-md mx-auto px-4 py-6 w-full">
         {/* Title */}
         <h1 className="text-2xl mb-1">
-          <span className="text-green-500 font-bold">Great News,</span>{' '}
+          <span className="text-green-500 font-bold">Great News,</span>{" "}
           <span className="font-bold text-gray-900">David,</span>
         </h1>
         <h2 className="text-2xl font-bold text-gray-900 mb-3">
@@ -100,34 +72,35 @@ export default function Signature() {
         </p>
 
         {/* Signature Canvas */}
-        <div className="mb-4 relative">
+        <div ref={containerRef} className="mb-4 relative">
           <div className="border-2 border-dashed border-gray-300 rounded-lg bg-white relative">
-            <canvas
-              ref={canvasRef}
-              width={400}
-              height={200}
-              className="w-full h-48 touch-none cursor-crosshair"
-              onMouseDown={startDrawing}
-              onMouseMove={draw}
-              onMouseUp={stopDrawing}
-              onMouseLeave={stopDrawing}
-              onTouchStart={startDrawing}
-              onTouchMove={draw}
-              onTouchEnd={stopDrawing}
+            <SignaturePad
+              ref={sigRef}
+              penColor="black"
+              canvasProps={{
+                width: canvasSize.width,
+                height: canvasSize.height,
+                className: "w-full h-48 touch-none cursor-crosshair",
+              }}
+              onEnd={handleEnd}
             />
+
+            {/* Dotted line */}
             <div className="absolute bottom-3 left-4 right-4 border-b-2 border-gray-400 pointer-events-none"></div>
+
+            {/* Signature label */}
             <div className="absolute top-3 left-3 text-gray-400 text-sm pointer-events-none">
               Signature
             </div>
+
+            {/* Reset Button */}
+            <button
+              onClick={resetSignature}
+              className="absolute top-3 right-3 bg-gray-200 px-3 py-1 rounded text-sm flex items-center gap-1 hover:bg-gray-300"
+            >
+              <span>↻</span> Reset signature
+            </button>
           </div>
-          
-          {/* Reset Button */}
-          <button
-            onClick={resetSignature}
-            className="absolute top-3 right-3 bg-gray-200 px-3 py-1 rounded text-sm flex items-center gap-1 hover:bg-gray-300"
-          >
-            <span>↻</span> Reset signature
-          </button>
         </div>
 
         {/* Agreement Link */}
@@ -154,10 +127,10 @@ export default function Signature() {
 
         {/* Submit Button */}
         <button
-          disabled={!isReady}
+          disabled={!isSigned}
           onClick={handleSubmit}
           className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-6 flex items-center justify-center
-            ${isReady ? "bg-gray-400 hover:bg-gray-500 cursor-pointer" : "bg-gray-300 cursor-not-allowed"}`}
+            ${isSigned ? "bg-gray-400 hover:bg-gray-500" : "bg-gray-300 cursor-not-allowed"}`}
         >
           <span className="mr-2">✓</span> Submit Claim & Reveal
         </button>
