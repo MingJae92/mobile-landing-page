@@ -2,51 +2,45 @@
 
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Footer from "./Footer";
 import { contactDetailsSchema } from "../schemas/formSchemas";
-
-// Type for form data
-type ContactForm = {
-  mobile: string;
-  email: string;
-};
-
-// Type for validation errors
-type ContactErrors = Partial<ContactForm>;
+import { RootState, AppDispatch } from "../store";
+import { setField } from "../store/contactDetailsSlice";
 
 export default function ContactDetails() {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // State as object
-  const [form, setForm] = useState<ContactForm>({ mobile: "", email: "" });
-  const [errors, setErrors] = useState<ContactErrors>({});
+  // ✅ Get form state from Redux
+  const form = useSelector((state: RootState) => state.contactDetails);
 
-  // Update form field
+  const [errors, setErrors] = useState<Partial<typeof form>>({});
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    // ✅ Update Redux state
+    dispatch(setField({ field: name as keyof typeof form, value }));
 
     // Clear error for this field if present
-    if (errors[name as keyof ContactErrors]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = () => {
     const validation = contactDetailsSchema.safeParse(form);
 
     if (!validation.success) {
-      const newErrors: ContactErrors = {};
+      const newErrors: Partial<typeof form> = {};
       validation.error.issues.forEach((issue) => {
-        const key = issue.path[0] as keyof ContactErrors;
+        const key = issue.path[0] as keyof typeof form;
         newErrors[key] = issue.message;
       });
       setErrors(newErrors);
       return;
     }
 
-    // Clear errors and navigate
     setErrors({});
     router.push("/signature");
   };
@@ -117,7 +111,7 @@ export default function ContactDetails() {
           🔍 &nbsp; Find My Agreements
         </button>
 
-        {/* Remaining content stays the same */}
+        {/* Trustpilot & Average claim */}
         <div className="text-center mb-6">
           <span className="text-green-500">★★★★★</span>
           <span className="font-semibold ml-1">Trustpilot</span>
@@ -129,6 +123,7 @@ export default function ContactDetails() {
           <p className="text-xl font-bold text-gray-900">£5,318.25* per vehicle</p>
         </div>
 
+        {/* Info / Disclaimers */}
         <p className="text-[11px] text-gray-600 leading-relaxed mb-6">
           By clicking 'Find My Agreements', you agree to the Courmacs Legal Privacy Policy,
           consent to receiving marketing communications, and acknowledge that we will run a
@@ -138,11 +133,7 @@ export default function ContactDetails() {
         </p>
 
         <div className="flex items-center gap-4 mb-6">
-          <img
-            src="/icons/sra-badge.png"
-            alt="SRA Badge"
-            className="h-10 w-auto"
-          />
+          <img src="/icons/sra-badge.png" alt="SRA Badge" className="h-10 w-auto" />
         </div>
 
         <p className="text-[11px] text-gray-600 leading-relaxed mb-6">

@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import Header from './Header';
 import RegulatorInfo from './RegulatorInfo';
 import PrivacyInfo from './PrivacyInfo';
@@ -8,10 +11,13 @@ import Footer from '../components/Footer';
 const starCount = 5;
 
 export default function ClaimSuccess() {
-  const router = useRouter();
-
   const [regNumber, setRegNumber] = useState('');
   const [selectedStar, setSelectedStar] = useState<number | null>(null);
+
+  // Get firstName and surname from Redux store
+  const { firstName, surname } = useSelector(
+    (state: RootState) => state.personalDetails
+  );
 
   const isRegValid = /^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i.test(regNumber);
 
@@ -26,7 +32,10 @@ export default function ClaimSuccess() {
         {/* Congratulations */}
         <section className="mb-6">
           <h1 className="text-2xl font-extrabold leading-tight mb-1">
-            Congratulations <span className="font-normal">(name)</span>
+            Congratulations{' '}
+            <span className="font-normal">
+              {firstName} {surname}
+            </span>
           </h1>
           <p className="text-base font-semibold mb-0.5">your claim is now submitted.</p>
           <p className="text-3xl font-extrabold text-green-700">£15,954.75*</p>
@@ -71,9 +80,8 @@ export default function ClaimSuccess() {
             <button
               type="submit"
               disabled={!isRegValid}
-              className={`w-full py-3 rounded font-semibold text-white text-base ${
-                isRegValid ? 'bg-gray-300 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'
-              }`}
+              className={`w-full py-3 rounded font-semibold text-white text-base ${isRegValid ? 'bg-gray-300 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'
+                }`}
             >
               Search &gt;
             </button>

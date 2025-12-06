@@ -1,38 +1,45 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
-import { useRouter } from "next/navigation"; // ✅ import router
+import { ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Footer from "./Footer";
 import RegulatorInfo from "./RegulatorInfo";
 import PrivacyInfo from "./PrivacyInfo";
 import PostcodeInput from "./PostcodeInput";
 import AddressFields from "./AddressFields";
+import {
+  setPostcode,
+  setAddress,
+  showAddressFields,
+} from "../store/formSlice";
+import type { RootState } from "../store";
 
 export default function AddressLender() {
-  const router = useRouter(); // ✅ initialize router
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [postcode, setPostcode] = useState<string>("");
-  const [addressFieldsVisible, setAddressFieldsVisible] = useState<boolean>(false);
-  const [address, setAddress] = useState({
-    line1: "",
-    line2: "",
-    city: "",
-    county: "",
-  });
+  // ✅ Get Redux state
+  const postcode = useSelector((state: RootState) => state.form.postcode);
+  const address = useSelector((state: RootState) => state.form.address);
+  const addressFieldsVisible = useSelector(
+    (state: RootState) => state.form.addressFieldsVisible
+  );
 
+  // ✅ Handlers
   const handlePostcodeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPostcode(e.target.value);
+    dispatch(setPostcode(e.target.value));
   };
 
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
+    dispatch(setAddress({ [name]: value }));
   };
 
   const handleSearch = () => {
     if (postcode.trim().length > 0) {
-      setAddressFieldsVisible(true);
+      dispatch(showAddressFields());
     }
   };
 
@@ -66,7 +73,12 @@ export default function AddressLender() {
               </p>
             </div>
             <div className="flex-shrink-0 ml-3 sm:ml-4">
-              <svg className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20" viewBox="0 0 100 100" fill="none" aria-hidden>
+              <svg
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                viewBox="0 0 100 100"
+                fill="none"
+                aria-hidden
+              >
                 <rect x="20" y="40" width="60" height="50" fill="#ff1744" />
                 <rect x="20" y="40" width="60" height="10" fill="#d50000" />
                 <rect x="42" y="60" width="16" height="30" fill="#00bcd4" />
@@ -81,22 +93,17 @@ export default function AddressLender() {
 
           {/* INPUT + BUTTON */}
           <div className="flex-1 max-w-md">
-            {/* Postcode Input */}
             <PostcodeInput
               postcode={postcode}
               onChange={handlePostcodeChange}
               onSearch={handleSearch}
             />
-
-
           </div>
 
           {/* ADDRESS FIELDS SHOWN AFTER SEARCH */}
-          {/* Address Fields */}
           {addressFieldsVisible && (
             <AddressFields address={address} onChange={handleAddressChange} />
           )}
-
         </div>
 
         {/* Trust Section */}
