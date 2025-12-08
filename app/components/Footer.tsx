@@ -1,8 +1,6 @@
-import React from 'react'
-
-export default  function Footer() {
+export default function Footer() {
   return (
-    <div className="flex gap-4 text-xs text-gray-600 border-t pt-4">
+    <div className="bg-black text-white flex gap-4 text-xs border-t border-gray-700 pt-4 pb-4 px-4">
       <a href="#" className="hover:underline">
         Terms & Conditions
       </a>
@@ -13,6 +11,5 @@ export default  function Footer() {
         Privacy Policy
       </a>
     </div>
-  )
+  );
 }
-

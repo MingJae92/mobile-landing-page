@@ -2,7 +2,7 @@ import React from 'react'
 
 function RegulatorInfo() {
   return (
-    <div className="bg-gray-50 rounded-lg p-6 mb-4">
+    <div className="bg-white rounded-lg p-6 mb-4">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-10 h-10 bg-red-100 rounded flex items-center justify-center text-red-600 text-xl">
           🛡️

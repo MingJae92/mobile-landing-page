@@ -12,7 +12,7 @@ export default function Landingpage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="max-w-md mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="max-w-md mx-auto  py-6 sm:py-8">
         <Hero />
         <Trustindicator />
         <Lender />

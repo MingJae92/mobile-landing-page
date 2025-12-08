@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PrivacyInfo() {
   return (
-    <div className="text-xs text-gray-600 mb-4">
+    <div className="text-xs text-gray-600 p-6 mb-4">
       <h3 className="font-semibold mb-2">Privacy and Complaints</h3>
       <p className="mb-3">
         By submitting this form, you consent to Cou­rmacs Legal Limited

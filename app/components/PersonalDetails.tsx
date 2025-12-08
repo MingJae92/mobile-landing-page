@@ -10,6 +10,7 @@ import Header from "./Header";
 import RegulatorInfo from "./RegulatorInfo";
 import PrivacyInfo from "./PrivacyInfo";
 import { personalDetailsSchema } from "../schemas/formSchemas";
+import Trustindicator from "./TrustIndicator";
 
 export default function PersonalDetails() {
   const router = useRouter();
@@ -117,7 +118,7 @@ export default function PersonalDetails() {
           Next &nbsp;›
         </button>
 
-        <div className="text-center mt-4 mb-4">
+        {/* <div className="text-center mt-4 mb-4">
           <span className="text-green-500">★★★★★</span>
           <span className="font-semibold ml-1">Trustpilot</span>
           <span className="text-gray-600 ml-1">4.6</span>
@@ -128,7 +129,9 @@ export default function PersonalDetails() {
             <p className="text-xs sm:text-sm text-gray-600 mb-1">Average claim value:</p>
             <p className="text-xl sm:text-2xl font-bold text-gray-900">£5,318.25* per vehicle</p>
           </div>
-        </div>
+        </div> */}
+
+        <Trustindicator/>
 
         <RegulatorInfo />
         <PrivacyInfo />

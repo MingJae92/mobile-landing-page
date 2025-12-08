@@ -15,6 +15,7 @@ import {
   showAddressFields,
 } from "../store/formSlice";
 import type { RootState } from "../store";
+import Trustindicator from "./TrustIndicator";
 
 export default function AddressLender() {
   const router = useRouter();
@@ -106,25 +107,7 @@ export default function AddressLender() {
           )}
         </div>
 
-        {/* Trust Section */}
-        <div className="bg-white border-t pt-4 sm:pt-6 mb-4 sm:mb-6">
-          <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 flex-wrap text-xs sm:text-sm">
-            <span className="text-green-500">★★★★★</span>
-            <span className="font-semibold">Trustpilot</span>
-            <span className="text-gray-600">4.6</span>
-            <div className="flex items-center gap-1 ml-2 sm:ml-4">
-              <span className="text-green-500">🛡️</span>
-              <span className="font-semibold">SECURE</span>
-              <span>SSL ENCRYPTION</span>
-            </div>
-          </div>
-
-          <div className="text-center mb-4 sm:mb-6">
-            <p className="text-xs sm:text-sm text-gray-600 mb-1">Average claim value:</p>
-            <p className="text-xl sm:text-2xl font-bold text-gray-900">£5,318.25* per vehicle</p>
-          </div>
-        </div>
-
+        <Trustindicator />
         <RegulatorInfo />
         <PrivacyInfo />
       </main>

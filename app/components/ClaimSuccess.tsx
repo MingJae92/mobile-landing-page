@@ -296,19 +296,7 @@ export default function ClaimSuccess() {
         <PrivacyInfo />
 
         {/* Footer links */}
-        <footer className="mx-auto text-xs text-center text-gray-500 mb-6">
-          <a href="/terms" className="underline mx-1 hover:text-gray-700">
-            Terms &amp; Conditions
-          </a>{' '}
-          |{' '}
-          <a href="/complaints" className="underline mx-1 hover:text-gray-700">
-            Complaints Procedure
-          </a>{' '}
-          |{' '}
-          <a href="/privacy" className="underline mx-1 hover:text-gray-700">
-            Privacy Policy
-          </a>
-        </footer>
+
 
         <Footer />
       </main>

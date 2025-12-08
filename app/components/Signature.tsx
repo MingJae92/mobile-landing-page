@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import SignaturePad from "react-signature-canvas";
 import Header from "./Header";
+import Trustindicator from "./TrustIndicator";
 
 export default function Signature() {
   const router = useRouter();
@@ -136,25 +137,10 @@ export default function Signature() {
         </button>
 
         {/* Trust Badges */}
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="flex items-center gap-1">
-            <span className="text-green-600">★</span>
-            <span className="font-bold text-sm">Trustpilot</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
-            </svg>
-            <span className="font-semibold text-sm">SECURE</span>
-            <span className="text-gray-600 text-xs">SSL ENCRYPTION</span>
-          </div>
-        </div>
+        <Trustindicator />
 
         {/* Average Claim Value */}
-        <div className="text-center mb-6">
-          <p className="text-sm font-semibold text-gray-900 mb-1">Average claim value:</p>
-          <p className="text-2xl font-bold text-gray-900">£5,318.25* per vehicle</p>
-        </div>
+
 
         {/* SRA Badge */}
         <div className="flex justify-center mb-6">
