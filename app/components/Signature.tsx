@@ -6,6 +6,8 @@ import SignaturePad from "react-signature-canvas";
 import Header from "./Header";
 import Trustindicator from "./TrustIndicator";
 import Footer from "./Footer";
+import PrivacyInfo from "./PrivacyInfo";
+import RegulatorInfo from "./RegulatorInfo";
 
 export default function Signature() {
   const router = useRouter();
@@ -140,42 +142,13 @@ export default function Signature() {
         {/* Trust Badges */}
         <Trustindicator />
 
-        {/* SRA Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="border-2 border-red-600 p-2 text-center">
-            <div className="text-red-600 font-bold text-xs">SOLICITORS</div>
-            <div className="text-red-600 font-bold text-xs">REGULATION</div>
-            <div className="text-red-600 font-bold text-xs">AUTHORITY</div>
-            <div className="text-gray-700 text-[10px] mt-1">Regulated Law Firm</div>
-          </div>
-        </div>
+
 
         {/* Footer Legal Text */}
-        <div className="space-y-4 text-xs text-gray-600 leading-relaxed">
-          <p>
-            PCP Pal is a trading style of Courmacs Legal Limited...
-          </p>
 
-          <p>
-            The outcome of your claim will depend on the specific circumstances...
-          </p>
-
-          <p>
-            *£5,318.25 is the average claim...
-          </p>
-
-          <p className="font-semibold">Privacy and Complaints</p>
-
-          <p>
-            By submitting a claim, you consent to Courmacs Legal Limited processing your data...
-          </p>
-
-          <p>
-            The agreements identified are subject to verification...
-          </p>
-        </div>
       </main>
-
+      <RegulatorInfo/>
+      <PrivacyInfo />
       {/* Footer EXACTLY matching ContactDetails position */}
       <Footer />
     </div>

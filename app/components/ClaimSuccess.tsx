@@ -29,9 +29,9 @@ export default function ClaimSuccess() {
 
       {/* Compact Info Banner */}
       <div className="bg-gray-50 px-4 py-2 mb-2 border-b flex items-center gap-2 text-xs sm:text-sm leading-tight text-gray-700 w-full">
-  <span>👤</span>
-  <span>22.43 million households in UK could be affected</span>
-</div>
+        <span>👤</span>
+        <span>22.43 million households in UK could be affected</span>
+      </div>
 
       {/* Main content - centered */}
       <main className="flex-1 max-w-md mx-auto px-4 py-6 space-y-6 w-full">
@@ -166,11 +166,21 @@ export default function ClaimSuccess() {
 
         {/* Speed Things Up */}
         <section>
-          <h3 className="font-semibold text-base mb-2">Speed Things Up!</h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="font-semibold text-base">Speed Things Up!</h3>
+            {/* ID card icon aligned on right */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-cyan-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <line x1="7" y1="9" x2="11" y2="9" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="7" y1="13" x2="17" y2="13" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="7" y1="17" x2="13" y2="17" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+
           <p className="text-sm mb-3">Speed up your claim by uploading your driving licence (or passport).</p>
+
           <button
             type="button"
-            className="w-full bg-cyan-100 text-cyan-800 py-3 rounded mb-3 font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="w-full bg-cyan-100 text-cyan-800 py-3 rounded font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 12l5-5 5 5M12 7v10"/>
