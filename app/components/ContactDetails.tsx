@@ -18,16 +18,11 @@ export default function ContactDetails() {
 
   // ✅ Get form state from Redux
   const form = useSelector((state: RootState) => state.contactDetails);
-
   const [errors, setErrors] = useState<Partial<typeof form>>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // ✅ Update Redux state
     dispatch(setField({ field: name as keyof typeof form, value }));
-
-    // Clear error for this field if present
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
@@ -60,6 +55,7 @@ export default function ContactDetails() {
         <span>32.62 million drivers at risk of losing out on compensation</span>
       </div>
 
+      {/* Centered form section */}
       <main className="max-w-md mx-auto px-4 py-6">
         <h1 className="text-xl font-bold text-gray-900 mb-2">
           Enter Mobile Number <br /> and Email Address
@@ -107,31 +103,30 @@ export default function ContactDetails() {
         <button
           disabled={!isReady}
           onClick={handleSubmit}
-          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-8 flex items-center justify-center ${isReady ? "bg-[#FF004F] hover:bg-[#E6004A] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
-            }`}
+          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-8 flex items-center justify-center ${
+            isReady
+              ? "bg-[#FF004F] hover:bg-[#E6004A] cursor-pointer"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           🔍 &nbsp; Find My Agreements
         </button>
-
-        {/* Trustpilot & Average claim */}
-        <Trustindicator />
-
-        {/* Info / Disclaimers */}
-        <p className="text-[11px] text-gray-600 leading-relaxed mb-6">
-          By clicking 'Find My Agreements', you agree to the Courmacs Legal Privacy Policy,
-          consent to receiving marketing communications, and acknowledge that we will run a
-          soft credit check (powered by Valid8 IP Ltd) to identify any potential car finance
-          claims. These searches will not impact your credit score, but will verify any
-          claims found.
-        </p>
-
-
-
-
-        <RegulatorInfo />
-        <PrivacyInfo />
-        <Footer />
       </main>
+
+      {/* Full width sections */}
+      <div className="w-full bg-gray-50">
+        <Trustindicator />
+      </div>
+
+      <div className="w-full bg-white">
+        <RegulatorInfo />
+      </div>
+
+      <div className="w-full bg-white">
+        <PrivacyInfo />
+      </div>
+
+      <Footer />
     </div>
   );
 }

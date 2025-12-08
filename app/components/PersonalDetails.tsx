@@ -15,7 +15,7 @@ import Trustindicator from "./TrustIndicator";
 export default function PersonalDetails() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  
+
   const form = useSelector((state: RootState) => state.personalDetails);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -104,9 +104,9 @@ export default function PersonalDetails() {
 
         <p className="text-gray-900 font-medium mb-2">Date of Birth</p>
         <div className="grid grid-cols-3 gap-3 mb-4">
-          <input type="text" name="dobDay" placeholder="DD" maxLength={2} value={dobDay} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"/>
-          <input type="text" name="dobMonth" placeholder="MM" maxLength={2} value={dobMonth} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"/>
-          <input type="text" name="dobYear" placeholder="YYYY" maxLength={4} value={dobYear} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"/>
+          <input type="text" name="dobDay" placeholder="DD" maxLength={2} value={dobDay} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
+          <input type="text" name="dobMonth" placeholder="MM" maxLength={2} value={dobMonth} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
+          <input type="text" name="dobYear" placeholder="YYYY" maxLength={4} value={dobYear} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
         </div>
         {(errors.dobDay || errors.dobMonth || errors.dobYear) && <p className="text-red-500 text-xs mb-2">{errors.dobDay || errors.dobMonth || errors.dobYear}</p>}
 
@@ -118,20 +118,7 @@ export default function PersonalDetails() {
           Next &nbsp;›
         </button>
 
-        {/* <div className="text-center mt-4 mb-4">
-          <span className="text-green-500">★★★★★</span>
-          <span className="font-semibold ml-1">Trustpilot</span>
-          <span className="text-gray-600 ml-1">4.6</span>
-        </div>
-
-        <div className="bg-white border-t pt-4 sm:pt-6 mb-4 sm:mb-6">
-          <div className="text-center mb-4 sm:mb-6">
-            <p className="text-xs sm:text-sm text-gray-600 mb-1">Average claim value:</p>
-            <p className="text-xl sm:text-2xl font-bold text-gray-900">£5,318.25* per vehicle</p>
-          </div>
-        </div> */}
-
-        <Trustindicator/>
+        <Trustindicator />
 
         <RegulatorInfo />
         <PrivacyInfo />

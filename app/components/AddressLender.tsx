@@ -21,7 +21,7 @@ export default function AddressLender() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // ✅ Get Redux state
+  // ✅ Redux state
   const postcode = useSelector((state: RootState) => state.form.postcode);
   const address = useSelector((state: RootState) => state.form.address);
   const addressFieldsVisible = useSelector(
@@ -55,6 +55,7 @@ export default function AddressLender() {
     <div className="min-h-screen bg-white">
       <Header />
 
+      {/* Centered form section */}
       <main className="max-w-md mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Info Banner */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b">
@@ -106,11 +107,20 @@ export default function AddressLender() {
             <AddressFields address={address} onChange={handleAddressChange} />
           )}
         </div>
-
-        <Trustindicator />
-        <RegulatorInfo />
-        <PrivacyInfo />
       </main>
+
+      {/* Full width informational sections */}
+      <div className="w-full bg-gray-50">
+        <Trustindicator />
+      </div>
+
+      <div className="w-full bg-white">
+        <RegulatorInfo />
+      </div>
+
+      <div className="w-full bg-white">
+        <PrivacyInfo />
+      </div>
 
       <Footer />
     </div>
