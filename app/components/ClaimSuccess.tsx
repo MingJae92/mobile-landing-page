@@ -85,27 +85,50 @@ export default function ClaimSuccess() {
         </section>
 
         {/* Next steps */}
-        <section>
-          <h2 className="font-semibold text-base flex items-center mb-2">
-            <img src="/courtness-legal.svg" alt="Courtness Legal" className="w-20 h-auto mr-2" aria-hidden="true" />
-            Next steps
-          </h2>
-          <p className="text-sm mb-3">
-            Keep an eye out for an email in your inbox as we will shortly be sending you a copy of your legal documents.
-          </p>
-          <p className="text-xs italic mb-3">
-            Watch this short video on what the next steps of your journey with Courtness Legal are.
-          </p>
-          <div className="aspect-w-16 aspect-h-9 rounded overflow-hidden mb-4">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/3cj7LvqAHow"
-              title="Next Steps Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </section>
+        {/* Next steps */}
+<section>
+  <div className="flex items-center justify-between mb-2">
+    <h2 className="font-semibold text-base">Next steps</h2>
+    {/* SVG icon on the right */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-6 h-6 text-blue-700 flex-shrink-0"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12h6M9 16h6"
+      />
+    </svg>
+  </div>
+
+  <p className="text-sm mb-3">
+    Keep an eye out for an email in your inbox as we will shortly be sending you a copy of your legal documents.
+  </p>
+  <p className="text-xs italic mb-3">
+    Watch this short video on what the next steps of your journey with Courtness Legal are.
+  </p>
+  <div className="aspect-w-16 aspect-h-9 rounded overflow-hidden mb-4">
+    <iframe
+      className="w-full h-full"
+      src="https://www.youtube.com/embed/3cj7LvqAHow"
+      title="Next Steps Video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  </div>
+</section>
+
 
         {/* Help your close ones */}
         <section>
