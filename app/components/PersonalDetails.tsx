@@ -51,19 +51,23 @@ export default function PersonalDetails() {
     router.push("/contact-details");
   };
 
-  const inputClasses = "px-4 py-3 bg-gray-100 rounded-lg mb-4 text-gray-900";
+  const inputClasses = "px-4 py-3 bg-gray-100 rounded-lg mb-3 text-gray-900";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white min-h-screen flex flex-col">
+      {/* HEADER */}
       <Header />
-      <div className="border-b px-4 py-2 text-sm flex items-center gap-2">
+
+      {/* Info Banner */}
+      <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-xs sm:text-sm text-gray-700">
         <span>👤</span>
         <span>32.62 million drivers at risk of losing out on compensation</span>
       </div>
 
-      <main className="max-w-md mx-auto px-4 py-6">
-        <h1 className="text-xl font-bold text-gray-900 mb-1">Your Personal Details</h1>
-        <p className="text-gray-600 text-sm mb-5">
+      {/* MAIN CONTENT - centered and compact */}
+      <main className="flex-1 max-w-md mx-auto px-4 py-3 w-full space-y-3">
+        <h1 className="text-xl font-bold text-gray-900">Your Personal Details</h1>
+        <p className="text-gray-600 text-sm">
           Your current personal details are essential to search for all finance agreements attached to your name.
         </p>
 
@@ -80,7 +84,7 @@ export default function PersonalDetails() {
           <option value="Miss">Miss</option>
           <option value="Dr">Dr</option>
         </select>
-        {errors.title && <p className="text-red-500 text-xs mb-2">{errors.title}</p>}
+        {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
 
         <input
           type="text"
@@ -90,7 +94,7 @@ export default function PersonalDetails() {
           onChange={handleChange}
           className={`w-full ${inputClasses}`}
         />
-        {errors.firstName && <p className="text-red-500 text-xs mb-2">{errors.firstName}</p>}
+        {errors.firstName && <p className="text-red-500 text-xs">{errors.firstName}</p>}
 
         <input
           type="text"
@@ -100,30 +104,68 @@ export default function PersonalDetails() {
           onChange={handleChange}
           className={`w-full ${inputClasses}`}
         />
-        {errors.surname && <p className="text-red-500 text-xs mb-2">{errors.surname}</p>}
+        {errors.surname && <p className="text-red-500 text-xs">{errors.surname}</p>}
 
-        <p className="text-gray-900 font-medium mb-2">Date of Birth</p>
-        <div className="grid grid-cols-3 gap-3 mb-4">
-          <input type="text" name="dobDay" placeholder="DD" maxLength={2} value={dobDay} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
-          <input type="text" name="dobMonth" placeholder="MM" maxLength={2} value={dobMonth} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
-          <input type="text" name="dobYear" placeholder="YYYY" maxLength={4} value={dobYear} onChange={handleChange} className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900" />
+        <p className="text-gray-900 font-medium mb-1">Date of Birth</p>
+        <div className="grid grid-cols-3 gap-3">
+          <input
+            type="text"
+            name="dobDay"
+            placeholder="DD"
+            maxLength={2}
+            value={dobDay}
+            onChange={handleChange}
+            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+          />
+          <input
+            type="text"
+            name="dobMonth"
+            placeholder="MM"
+            maxLength={2}
+            value={dobMonth}
+            onChange={handleChange}
+            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+          />
+          <input
+            type="text"
+            name="dobYear"
+            placeholder="YYYY"
+            maxLength={4}
+            value={dobYear}
+            onChange={handleChange}
+            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+          />
         </div>
-        {(errors.dobDay || errors.dobMonth || errors.dobYear) && <p className="text-red-500 text-xs mb-2">{errors.dobDay || errors.dobMonth || errors.dobYear}</p>}
+        {(errors.dobDay || errors.dobMonth || errors.dobYear) && (
+          <p className="text-red-500 text-xs">
+            {errors.dobDay || errors.dobMonth || errors.dobYear}
+          </p>
+        )}
 
         <button
           disabled={!isFormReady}
           onClick={validateAndNext}
-          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-6 ${isFormReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"}`}
+          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-4 ${
+            isFormReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           Next &nbsp;›
         </button>
 
         <Trustindicator />
-
-        <RegulatorInfo />
-        <PrivacyInfo />
-        <Footer />
       </main>
+
+      {/* FULL-WIDTH SECTIONS - outside centered main */}
+      <div className="w-full">
+        <RegulatorInfo />
+      </div>
+
+      <div className="w-full">
+        <PrivacyInfo />
+      </div>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 }
