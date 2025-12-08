@@ -1,170 +1,224 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store";
-import { setField } from "../store/personalDetailsSlice";
-import Footer from "../components/Footer";
-import Header from "./Header";
-import RegulatorInfo from "./RegulatorInfo";
-import PrivacyInfo from "./PrivacyInfo";
-import { personalDetailsSchema } from "../schemas/formSchemas";
-import Trustindicator from "./TrustIndicator";
+import { useState, FormEvent } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import Header from './Header';
+import RegulatorInfo from './RegulatorInfo';
+import PrivacyInfo from './PrivacyInfo';
+import Footer from '../components/Footer';
 
-export default function PersonalDetails() {
-  const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
+const starCount = 5;
 
-  const form = useSelector((state: RootState) => state.personalDetails);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+export default function ClaimSuccess() {
+  const [regNumber, setRegNumber] = useState('');
+  const [selectedStar, setSelectedStar] = useState<number | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    dispatch(setField({ field: name as keyof typeof form, value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
+  const { firstName, surname } = useSelector(
+    (state: RootState) => state.personalDetails
+  );
 
-  const { title, firstName, surname, dobDay, dobMonth, dobYear } = form;
+  const isRegValid = /^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i.test(regNumber);
 
-  const isFormReady =
-    title !== "" &&
-    firstName.trim() !== "" &&
-    surname.trim() !== "" &&
-    dobDay.trim() !== "" &&
-    dobMonth.trim() !== "" &&
-    dobYear.trim() !== "";
-
-  const validateAndNext = () => {
-    const result = personalDetailsSchema.safeParse(form);
-
-    if (!result.success) {
-      const formatted: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0];
-        if (typeof field === "string") formatted[field] = issue.message;
-      });
-      setErrors(formatted);
-      return;
-    }
-
-    router.push("/contact-details");
-  };
-
-  const inputClasses = "px-4 py-3 bg-gray-100 rounded-lg mb-3 text-gray-900";
+  const handleSubmit = (e: FormEvent) => e.preventDefault();
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      {/* HEADER */}
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Header */}
       <Header />
 
-      {/* Info Banner */}
-      <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-xs sm:text-sm text-gray-700">
+      {/* Info Banner - full width, outside main */}
+      <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-xs sm:text-sm text-gray-700 w-full">
         <span>👤</span>
-        <span>32.62 million drivers at risk of losing out on compensation</span>
+        <span>22.43 million households in UK could be affected</span>
       </div>
 
-      {/* MAIN CONTENT - centered and compact */}
-      <main className="flex-1 max-w-md mx-auto px-4 py-3 w-full space-y-3">
-        <h1 className="text-xl font-bold text-gray-900">Your Personal Details</h1>
-        <p className="text-gray-600 text-sm">
-          Your current personal details are essential to search for all finance agreements attached to your name.
-        </p>
+      {/* Main content - centered */}
+      <main className="flex-1 max-w-md mx-auto px-4 py-6 space-y-6 w-full">
+        {/* Congratulations */}
+        <section>
+          <h1 className="text-2xl font-extrabold leading-tight mb-1">
+            Congratulations <span className="font-normal">{firstName} {surname}</span>
+          </h1>
+          <p className="text-base font-semibold mb-0.5">your claim is now submitted.</p>
+          <p className="text-3xl font-extrabold text-green-700">£15,954.75*</p>
+          <select
+            aria-label="Agreements Found"
+            className="w-full bg-white border border-gray-300 rounded mt-3 py-2 px-3"
+            defaultValue=""
+          >
+            <option value="" disabled>3 Agreements Found</option>
+          </select>
+        </section>
 
-        <select
-          name="title"
-          value={title}
-          onChange={handleChange}
-          className={`${inputClasses} w-24`}
-        >
-          <option value="">Title</option>
-          <option value="Mr">Mr</option>
-          <option value="Mrs">Mrs</option>
-          <option value="Ms">Ms</option>
-          <option value="Miss">Miss</option>
-          <option value="Dr">Dr</option>
-        </select>
-        {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
+        {/* Missed agreements */}
+        <section>
+          <h2 className="font-semibold text-base mb-1">Feel like we’ve missed something?</h2>
+          <p className="text-sm mb-2">Use the registration checker below to find other agreements you know you’ve had.</p>
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <label htmlFor="reg" className="sr-only">Enter Vehicle Registration Number</label>
+            <div className="flex items-center bg-yellow-400 rounded w-full px-3 py-2 tracking-widest font-extrabold text-xl">
+              <div className="inline-flex items-center justify-center bg-blue-900 text-white rounded-sm w-10 h-[38px] mr-3 font-sans font-normal">
+                GB
+              </div>
+              <input
+                id="reg"
+                type="text"
+                maxLength={7}
+                spellCheck={false}
+                placeholder="SG65 YBA"
+                className="bg-transparent w-full focus:outline-none tracking-widest font-extrabold"
+                value={regNumber}
+                onChange={(e) => setRegNumber(e.target.value.toUpperCase())}
+                style={{ letterSpacing: '0.4em' }}
+                aria-label="Vehicle Registration Number"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={!isRegValid}
+              className={`w-full py-3 rounded font-semibold text-white text-base ${isRegValid ? 'bg-gray-300 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}
+            >
+              Search &gt;
+            </button>
+          </form>
+        </section>
 
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={firstName}
-          onChange={handleChange}
-          className={`w-full ${inputClasses}`}
-        />
-        {errors.firstName && <p className="text-red-500 text-xs">{errors.firstName}</p>}
-
-        <input
-          type="text"
-          name="surname"
-          placeholder="Surname"
-          value={surname}
-          onChange={handleChange}
-          className={`w-full ${inputClasses}`}
-        />
-        {errors.surname && <p className="text-red-500 text-xs">{errors.surname}</p>}
-
-        <p className="text-gray-900 font-medium mb-1">Date of Birth</p>
-        <div className="grid grid-cols-3 gap-3">
-          <input
-            type="text"
-            name="dobDay"
-            placeholder="DD"
-            maxLength={2}
-            value={dobDay}
-            onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
-          />
-          <input
-            type="text"
-            name="dobMonth"
-            placeholder="MM"
-            maxLength={2}
-            value={dobMonth}
-            onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
-          />
-          <input
-            type="text"
-            name="dobYear"
-            placeholder="YYYY"
-            maxLength={4}
-            value={dobYear}
-            onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
-          />
-        </div>
-        {(errors.dobDay || errors.dobMonth || errors.dobYear) && (
-          <p className="text-red-500 text-xs">
-            {errors.dobDay || errors.dobMonth || errors.dobYear}
+        {/* Next steps */}
+        <section>
+          <h2 className="font-semibold text-base flex items-center mb-2">
+            <img src="/courtness-legal.svg" alt="Courtness Legal" className="w-20 h-auto mr-2" aria-hidden="true" />
+            Next steps
+          </h2>
+          <p className="text-sm mb-3">
+            Keep an eye out for an email in your inbox as we will shortly be sending you a copy of your legal documents.
           </p>
-        )}
+          <p className="text-xs italic mb-3">
+            Watch this short video on what the next steps of your journey with Courtness Legal are.
+          </p>
+          <div className="aspect-w-16 aspect-h-9 rounded overflow-hidden mb-4">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/3cj7LvqAHow"
+              title="Next Steps Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </section>
 
-        <button
-          disabled={!isFormReady}
-          onClick={validateAndNext}
-          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-4 ${
-            isFormReady ? "bg-[#FF004F]" : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          Next &nbsp;›
-        </button>
+        {/* Help your close ones */}
+        <section>
+          <h3 className="font-semibold text-base mb-2">Help Your Close Ones Claim!</h3>
+          <p className="text-sm mb-4">Your friends and family may have financed a vehicle before 2021.</p>
+          <button
+            type="button"
+            className="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded w-full"
+            aria-label="Share on WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
+              <path d="M20.93 8.64a5.65 5.65 0 00-8 7.85l-3 1a.75.75 0 01-1.07-1l3.35-3.88a5.63 5.63 0 008.72-3.95zM2 13c0-5.25 4.25-9.5 9.5-9.5S21 7.75 21 13s-4.25 9.5-9.5 9.5S2 18.25 2 13z"/>
+            </svg>
+            <span>Share on WhatsApp</span>
+          </button>
+        </section>
 
-        <Trustindicator />
+        {/* Review */}
+        <section>
+          <h3 className="font-semibold text-base mb-2">How quick and easy was our website?</h3>
+          <p className="text-sm mb-4">Leave us a review to help others find out how much they could potentially be owed.</p>
+          <select
+            aria-label="Select A Star To Leave A Review"
+            className="w-full py-2 px-3 mb-3 border border-gray-300 rounded focus:outline-none"
+            value={selectedStar ?? ''}
+            onChange={(e) => setSelectedStar(Number(e.target.value))}
+          >
+            <option value="" disabled>Select A Star To Leave A Review</option>
+            {[...Array(starCount)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>{i + 1} Star{i + 1 > 1 ? 's' : ''}</option>
+            ))}
+          </select>
+          <div className="flex space-x-1">
+            {[...Array(starCount)].map((_, i) => {
+              const starIndex = i + 1;
+              const filled = selectedStar !== null && selectedStar >= starIndex;
+              return (
+                <svg
+                  key={starIndex}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill={filled ? '#FFC107' : 'none'}
+                  stroke="#FFC107"
+                  strokeWidth={1.5}
+                  viewBox="0 0 24 24"
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => setSelectedStar(starIndex)}
+                  role="button"
+                  aria-label={`${starIndex} Star`}
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedStar(starIndex); }}
+                >
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Speed Things Up */}
+        <section>
+          <h3 className="font-semibold text-base mb-2">Speed Things Up!</h3>
+          <p className="text-sm mb-3">Speed up your claim by uploading your driving licence (or passport).</p>
+          <button
+            type="button"
+            className="w-full bg-cyan-100 text-cyan-800 py-3 rounded mb-3 font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 12l5-5 5 5M12 7v10"/>
+            </svg>
+            <span>Click to Upload</span>
+          </button>
+          <button type="submit" disabled aria-disabled="true" className="w-full bg-gray-300 text-gray-600 py-3 rounded cursor-not-allowed font-semibold">
+            Submit &gt;
+          </button>
+        </section>
+
+        {/* Details summary */}
+        <section className="text-sm text-gray-800 space-y-3">
+          <ul className="space-y-3">
+            <li className="flex items-start space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#22c55e" strokeWidth={3} viewBox="0 0 24 24" className="w-6 h-6 shrink-0 mt-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>95% chance their car finance included lender commission.</span>
+            </li>
+            <li className="flex items-start space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#22c55e" strokeWidth={3} viewBox="0 0 24 24" className="w-6 h-6 shrink-0 mt-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>The average claim value is £5,318.25 per vehicle.</span>
+            </li>
+          </ul>
+        </section>
+
+        {/* Legal obligations */}
+        <section className="text-xs text-gray-600 space-y-3">
+          <p><strong>Legal Obligations</strong></p>
+          <p>• By submitting your details, you have entered a legal claims process. Review the confirmation email for next steps.</p>
+          <p>• Your Claim Value<br/>The average claim value is £5,318.25, some clients receive up to £10,446.46.</p>
+          <p><strong>Disclaimer:</strong> PCP Pal is a trading style of Courtness Legal Limited, Registered in England and Wales, Company No: 3195647. Authorised and regulated by The Solicitors Regulation Authority (SRA) – SRA Reg No: 819044. Registered with the Information Commissioners Office (ICO) – ICO Reg No: ZA899674.</p>
+          <p>The outcome of your claim depends on your circumstances; results may vary.</p>
+          <p>*£15,954.75 is the average claim at 29/05/2024.</p>
+          <p>*£10,446.46 is the most significant claim value as of 29/05/2024.</p>
+          <p>Based on industry research; results may vary.</p>
+          <p><strong>Privacy and Complaints</strong><br/>By submitting a claim, you consent to Courtness Legal Limited processing your data as per our Privacy Policy. See Complaints Procedure for details.</p>
+        </section>
       </main>
 
-      {/* FULL-WIDTH SECTIONS - outside centered main */}
-      <div className="w-full">
-        <RegulatorInfo />
-      </div>
+      {/* Full-width sections */}
+      <RegulatorInfo />
+      <PrivacyInfo />
 
-      <div className="w-full">
-        <PrivacyInfo />
-      </div>
-
-      {/* FOOTER */}
+      {/* Footer */}
       <Footer />
     </div>
   );

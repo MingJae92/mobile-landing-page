@@ -27,19 +27,18 @@ export default function ClaimSuccess() {
       {/* Header */}
       <Header />
 
-      {/* Info Banner - full width */}
-      <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-xs sm:text-sm text-gray-700">
-        <span>👤</span>
-        <span>22.43 million households in UK could be affected</span>
-      </div>
+      {/* Compact Info Banner */}
+      <div className="bg-gray-50 px-4 py-2 mb-2 border-b flex items-center gap-2 text-xs sm:text-sm leading-tight text-gray-700 w-full">
+  <span>👤</span>
+  <span>22.43 million households in UK could be affected</span>
+</div>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 max-w-md mx-auto px-4 py-4 w-full space-y-6">
+      {/* Main content - centered */}
+      <main className="flex-1 max-w-md mx-auto px-4 py-6 space-y-6 w-full">
         {/* Congratulations */}
         <section>
           <h1 className="text-2xl font-extrabold leading-tight mb-1">
-            Congratulations{' '}
-            <span className="font-normal">{firstName} {surname}</span>
+            Congratulations <span className="font-normal">{firstName} {surname}</span>
           </h1>
           <p className="text-base font-semibold mb-0.5">your claim is now submitted.</p>
           <p className="text-3xl font-extrabold text-green-700">£15,954.75*</p>
@@ -48,18 +47,14 @@ export default function ClaimSuccess() {
             className="w-full bg-white border border-gray-300 rounded mt-3 py-2 px-3"
             defaultValue=""
           >
-            <option value="" disabled>
-              3 Agreements Found
-            </option>
+            <option value="" disabled>3 Agreements Found</option>
           </select>
         </section>
 
         {/* Missed agreements */}
         <section>
           <h2 className="font-semibold text-base mb-1">Feel like we’ve missed something?</h2>
-          <p className="text-sm mb-2">
-            Use the registration checker below to find other agreements you know you’ve had.
-          </p>
+          <p className="text-sm mb-2">Use the registration checker below to find other agreements you know you’ve had.</p>
           <form onSubmit={handleSubmit} className="space-y-3">
             <label htmlFor="reg" className="sr-only">Enter Vehicle Registration Number</label>
             <div className="flex items-center bg-yellow-400 rounded w-full px-3 py-2 tracking-widest font-extrabold text-xl">
@@ -96,8 +91,7 @@ export default function ClaimSuccess() {
             Next steps
           </h2>
           <p className="text-sm mb-3">
-            Keep an eye out for an email in your inbox as we will shortly be sending you a copy of
-            your legal documents.
+            Keep an eye out for an email in your inbox as we will shortly be sending you a copy of your legal documents.
           </p>
           <p className="text-xs italic mb-3">
             Watch this short video on what the next steps of your journey with Courtness Legal are.
@@ -122,7 +116,7 @@ export default function ClaimSuccess() {
             className="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded w-full"
             aria-label="Share on WhatsApp"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
               <path d="M20.93 8.64a5.65 5.65 0 00-8 7.85l-3 1a.75.75 0 01-1.07-1l3.35-3.88a5.63 5.63 0 008.72-3.95zM2 13c0-5.25 4.25-9.5 9.5-9.5S21 7.75 21 13s-4.25 9.5-9.5 9.5S2 18.25 2 13z"/>
             </svg>
             <span>Share on WhatsApp</span>
@@ -161,9 +155,7 @@ export default function ClaimSuccess() {
                   role="button"
                   aria-label={`${starIndex} Star`}
                   tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') setSelectedStar(starIndex);
-                  }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedStar(starIndex); }}
                 >
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
@@ -171,15 +163,60 @@ export default function ClaimSuccess() {
             })}
           </div>
         </section>
+
+        {/* Speed Things Up */}
+        <section>
+          <h3 className="font-semibold text-base mb-2">Speed Things Up!</h3>
+          <p className="text-sm mb-3">Speed up your claim by uploading your driving licence (or passport).</p>
+          <button
+            type="button"
+            className="w-full bg-cyan-100 text-cyan-800 py-3 rounded mb-3 font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 12l5-5 5 5M12 7v10"/>
+            </svg>
+            <span>Click to Upload</span>
+          </button>
+          <button type="submit" disabled aria-disabled="true" className="w-full bg-gray-300 text-gray-600 py-3 rounded cursor-not-allowed font-semibold">
+            Submit &gt;
+          </button>
+        </section>
+
+        {/* Details summary */}
+        <section className="text-sm text-gray-800 space-y-3">
+          <ul className="space-y-3">
+            <li className="flex items-start space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#22c55e" strokeWidth={3} viewBox="0 0 24 24" className="w-6 h-6 shrink-0 mt-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>95% chance their car finance included lender commission.</span>
+            </li>
+            <li className="flex items-start space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#22c55e" strokeWidth={3} viewBox="0 0 24 24" className="w-6 h-6 shrink-0 mt-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>The average claim value is £5,318.25 per vehicle.</span>
+            </li>
+          </ul>
+        </section>
+
+        {/* Legal obligations */}
+        <section className="text-xs text-gray-600 space-y-3">
+          <p><strong>Legal Obligations</strong></p>
+          <p>• By submitting your details, you have entered a legal claims process. Review the confirmation email for next steps.</p>
+          <p>• Your Claim Value<br/>The average claim value is £5,318.25, some clients receive up to £10,446.46.</p>
+          <p><strong>Disclaimer:</strong> PCP Pal is a trading style of Courtness Legal Limited, Registered in England and Wales, Company No: 3195647. Authorised and regulated by The Solicitors Regulation Authority (SRA) – SRA Reg No: 819044. Registered with the Information Commissioners Office (ICO) – ICO Reg No: ZA899674.</p>
+          <p>The outcome of your claim depends on your circumstances; results may vary.</p>
+          <p>*£15,954.75 is the average claim at 29/05/2024.</p>
+          <p>*£10,446.46 is the most significant claim value as of 29/05/2024.</p>
+          <p>Based on industry research; results may vary.</p>
+          <p><strong>Privacy and Complaints</strong><br/>By submitting a claim, you consent to Courtness Legal Limited processing your data as per our Privacy Policy. See Complaints Procedure for details.</p>
+        </section>
       </main>
 
       {/* Full-width sections */}
-      <div className="w-full">
-        <RegulatorInfo />
-      </div>
-      <div className="w-full">
-        <PrivacyInfo />
-      </div>
+      <RegulatorInfo />
+      <PrivacyInfo />
 
       {/* Footer */}
       <Footer />
