@@ -16,7 +16,6 @@ export default function ContactDetails() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  // ✅ Get form state from Redux
   const form = useSelector((state: RootState) => state.contactDetails);
 
   const [errors, setErrors] = useState<Partial<typeof form>>({});
@@ -24,10 +23,7 @@ export default function ContactDetails() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // ✅ Update Redux state
     dispatch(setField({ field: name as keyof typeof form, value }));
-
-    // Clear error for this field if present
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
@@ -51,7 +47,7 @@ export default function ContactDetails() {
   const isReady = form.mobile.trim() !== "" && form.email.trim() !== "";
 
   return (
-    <div className="min-h-screen bg-white ">
+    <div className="min-h-screen bg-white">
       <Header />
 
       {/* Banner */}
@@ -69,12 +65,45 @@ export default function ContactDetails() {
           We will use these details to cross reference any car finance agreements you've had.
         </p>
 
-        <div className="flex justify-center mb-6">
-          <img
-            src="/icons/mobile-email.png"
-            alt="Phone & Email Icon"
-            className="w-24 h-auto"
-          />
+        {/* PHONE + EMAIL ICONS */}
+        <div className="flex items-center justify-center gap-10 mb-6">
+          {/* Phone */}
+          <div className="flex flex-col items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-10 h-10 text-pink-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 5l2-2 4 4-2 2a14 14 0 006 6l2-2 4 4-2 2c-1 .5-3 .5-4 0-3-1-7-5-8-8-.5-1-.5-3 0-4z"
+              />
+            </svg>
+            <p className="text-xs text-gray-500 mt-1">Mobile</p>
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-10 h-10 text-pink-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 4h16v16H4V4zm0 0l8 8 8-8"
+              />
+            </svg>
+            <p className="text-xs text-gray-500 mt-1">Email</p>
+          </div>
         </div>
 
         {/* Mobile Input */}
@@ -107,16 +136,19 @@ export default function ContactDetails() {
         <button
           disabled={!isReady}
           onClick={handleSubmit}
-          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-8 flex items-center justify-center ${isReady ? "bg-[#FF004F] hover:bg-[#E6004A] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
-            }`}
+          className={`w-full py-3 rounded-lg font-semibold text-white text-base mb-8 flex items-center justify-center ${
+            isReady
+              ? "bg-[#FF004F] hover:bg-[#E6004A] cursor-pointer"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
         >
           🔍 &nbsp; Find My Agreements
         </button>
 
-        {/* Trustpilot & Average claim */}
+        {/* Trustpilot */}
         <Trustindicator />
 
-        {/* Info / Disclaimers */}
+        {/* Privacy Text */}
         <p className="text-[11px] text-gray-600 leading-relaxed mb-6">
           By clicking 'Find My Agreements', you agree to the Courmacs Legal Privacy Policy,
           consent to receiving marketing communications, and acknowledge that we will run a
@@ -124,6 +156,7 @@ export default function ContactDetails() {
           claims. These searches will not impact your credit score, but will verify any
           claims found.
         </p>
+
         <RegulatorInfo />
         <PrivacyInfo />
         <Footer />

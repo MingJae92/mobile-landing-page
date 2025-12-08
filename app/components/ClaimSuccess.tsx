@@ -30,7 +30,7 @@ export default function ClaimSuccess() {
       {/* Compact Info Banner */}
       <div className="bg-gray-50 px-4 py-2 mb-2 border-b flex items-center gap-2 text-xs sm:text-sm leading-tight text-gray-700 w-full">
         <span>👤</span>
-        <span>22.43 million households in UK could be affected</span>
+        <span>You've now joined the 1 million+ drivers helped so far</span>
       </div>
 
       {/* Main content - centered */}
