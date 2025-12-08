@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import SignaturePad from "react-signature-canvas";
 import Header from "./Header";
 import Trustindicator from "./TrustIndicator";
+import Footer from "./Footer";
 
 export default function Signature() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Signature() {
     const updateSize = () => {
       if (containerRef.current) {
         const width = containerRef.current.clientWidth;
-        const height = width / 2; // 2:1 ratio
+        const height = width / 2;
         setCanvasSize({ width, height });
       }
     };
@@ -50,12 +51,13 @@ export default function Signature() {
       {/* Info Banner */}
       <div className="bg-gray-50 px-4 py-2 border-b flex items-center gap-2 text-sm">
         <span>👤</span>
-        <span className="text-gray-700">Final step! Your claim is 100% no-win, no-fee!</span>
+        <span className="text-gray-700">
+          Final step! Your claim is 100% no-win, no-fee!
+        </span>
       </div>
 
       {/* MAIN CONTENT */}
       <main className="flex-1 max-w-md mx-auto px-4 py-6 w-full">
-        {/* Title */}
         <h1 className="text-2xl mb-1">
           <span className="text-green-500 font-bold">Great News,</span>{" "}
           <span className="font-bold text-gray-900">David,</span>
@@ -105,18 +107,17 @@ export default function Signature() {
         </div>
 
         {/* Agreement Link */}
-        <a href="#" className="text-sm text-blue-600 underline block mb-4">
+        <a
+          href="#"
+          className="text-sm text-blue-600 underline block mb-4"
+        >
           View our no-win no-fee client agreement (DBA)
         </a>
 
         {/* Legal Text */}
         <p className="text-xs text-gray-600 leading-relaxed mb-4">
-          By proceeding, you confirm that you have read, understand, and accept Courmacs Legal
-          Limited's Terms and Conditions, Data Subject Access Request (DSAR) Policy, and consent to
-          a data subject access request (DSAR) to find out if my PCP or HP agreements were mis-
-          sold by clicking 'Submit My Claim'. I understand that for each claim, I will receive a new
-          damages-based agreement for me to review and that my signature shown will be applied
-          to each document.
+          By proceeding, you confirm that you have read, understand, and accept
+          Courmacs Legal Limited's Terms and Conditions...
         </p>
 
         {/* Info Box */}
@@ -139,9 +140,6 @@ export default function Signature() {
         {/* Trust Badges */}
         <Trustindicator />
 
-        {/* Average Claim Value */}
-
-
         {/* SRA Badge */}
         <div className="flex justify-center mb-6">
           <div className="border-2 border-red-600 p-2 text-center">
@@ -155,46 +153,31 @@ export default function Signature() {
         {/* Footer Legal Text */}
         <div className="space-y-4 text-xs text-gray-600 leading-relaxed">
           <p>
-            PCP Pal is a trading style of Courmacs Legal Limited. Registered in England and Wales,
-            Company No. 13185687. Authorised and regulated by the Solicitors Regulation Authority
-            (SRA) – SRA Reg No: 819044. Registered with the Information Commissioner's Office (ICO)
-            – ICO Reg No: ZA886741.
+            PCP Pal is a trading style of Courmacs Legal Limited...
           </p>
 
           <p>
-            The outcome of your claim will depend on the specific circumstances of your case. Results
-            may vary, and past performance does not indicate future outcomes.
+            The outcome of your claim will depend on the specific circumstances...
           </p>
 
           <p>
-            *£5,318.25 is the average claim as of 29/05/2024.
-            <br />
-            *£10,446.46 is the most significant claim value as of 29/05/2024.
-            <br />
-            *Based on industry research; industry results may vary.
+            *£5,318.25 is the average claim...
           </p>
 
           <p className="font-semibold">Privacy and Complaints</p>
 
           <p>
-            By submitting a claim, you consent to Courmacs Legal Limited processing your data in
-            accordance with our Privacy Policy. For concerns, please review our Complaints Procedure.
+            By submitting a claim, you consent to Courmacs Legal Limited processing your data...
           </p>
 
           <p>
-            The agreements identified are subject to verification. This means that while agreements
-            may be initially detected, they must go through a verification process to confirm
-            eligibility.
+            The agreements identified are subject to verification...
           </p>
         </div>
-
-        {/* Bottom Links */}
-        <div className="flex justify-center gap-4 mt-8 pt-6 border-t text-xs">
-          <a href="#" className="text-gray-700 underline">Terms & Conditions</a>
-          <a href="#" className="text-gray-700 underline">Complaints Procedure</a>
-          <a href="#" className="text-gray-700 underline">Privacy Policy</a>
-        </div>
       </main>
+
+      {/* Footer EXACTLY matching ContactDetails position */}
+      <Footer />
     </div>
   );
 }

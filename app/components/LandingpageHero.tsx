@@ -1,11 +1,12 @@
 import React from 'react'
 
-export default function Hero() {
+export default function LandingpageHero() {
   return (
-   <div>
-      <p className="text-sm text-gray-600 mb-4">
-        👤 1,000,000+ drivers helped so far
-      </p>
+    <div className="pt-0 mt-0">  
+      <div className="border-b px-4 py-2 text-sm flex items-center gap-2 mb-4">
+        <span className="font-semibold">👤</span>
+        <span className="text-gray-600">1,000,000+ drivers helped so far</span>
+      </div>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
         You could be owed up to £5,318.25* per car finance agreement.
@@ -22,4 +23,3 @@ export default function Hero() {
     </div>
   )
 }
-

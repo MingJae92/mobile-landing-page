@@ -2,7 +2,7 @@
 
 import Footer from "./Footer";
 import Header from "./Header";
-import Hero from "./Hero";
+import LandingpageHero from "./LandingpageHero";
 import Lender from "./Lender";
 import PrivacyInfo from "./PrivacyInfo";
 import RegulatorInfo from "./RegulatorInfo";
@@ -12,13 +12,16 @@ export default function Landingpage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="max-w-md mx-auto  py-6 sm:py-8">
-        <Hero />
+
+      {/* Removed top spacing */}
+      <main className="max-w-md mx-auto pt-0 pb-6">
+        <LandingpageHero />
         <Trustindicator />
         <Lender />
         <RegulatorInfo />
         <PrivacyInfo />
       </main>
+
       <Footer />
     </div>
   );
