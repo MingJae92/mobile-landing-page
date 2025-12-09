@@ -33,7 +33,7 @@ export default function AddressFields({ address, onChange }: AddressFieldsProps)
         placeholder="Address Line 1"
         value={address.line1}
         onChange={onChange}
-        className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+        className="w-full px-4 py-3 bg-gray-100 rounded-none text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
       <input
         type="text"
@@ -41,7 +41,7 @@ export default function AddressFields({ address, onChange }: AddressFieldsProps)
         placeholder="Address Line 2"
         value={address.line2}
         onChange={onChange}
-        className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+        className="w-full px-4 py-3 bg-gray-100 rounded-none text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
       <input
         type="text"
@@ -49,7 +49,7 @@ export default function AddressFields({ address, onChange }: AddressFieldsProps)
         placeholder="Town/City"
         value={address.city}
         onChange={onChange}
-        className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+        className="w-full px-4 py-3 bg-gray-100 rounded-none text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
       <input
         type="text"
@@ -57,7 +57,7 @@ export default function AddressFields({ address, onChange }: AddressFieldsProps)
         placeholder="County"
         value={address.county}
         onChange={onChange}
-        className="w-full px-4 py-3 bg-gray-100 rounded-lg text-gray-900 placeholder-gray-500 text-sm sm:text-base"
+        className="w-full px-4 py-3 bg-gray-100 rounded-none text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
 
       <p className="text-sm sm:text-base text-gray-700 pt-2">
