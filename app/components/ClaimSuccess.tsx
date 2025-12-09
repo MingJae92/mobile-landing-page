@@ -68,17 +68,7 @@ export default function ClaimSuccess() {
                 fill
                 className="object-cover"
               />
-              <input
-                id="reg"
-                type="text"
-                maxLength={7}
-                spellCheck={false}
-                placeholder="" // removed placeholder
-                className="absolute inset-0 w-full h-full bg-transparent focus:outline-none"
-                value={regNumber}
-                onChange={(e) => setRegNumber(e.target.value.toUpperCase())}
-                aria-label="Vehicle Registration Number"
-              />
+              
             </div>
 
             <button
