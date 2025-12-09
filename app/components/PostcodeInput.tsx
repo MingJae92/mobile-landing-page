@@ -16,7 +16,7 @@ export default function PostcodeInput({ postcode, onChange, onSearch }: Postcode
         placeholder="Postcode"
         value={postcode}
         onChange={onChange}
-        className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 rounded-lg text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-100 rounded-none text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
 
       <button

@@ -31,14 +31,14 @@ export default function PcpDropdown() {
   };
 
   return (
-    <div className="bg-gray-50 py-6 px-4 rounded-lg mt-4">
+    <div className="bg-gray-50 py-6 px-4 rounded-lg mt-6">
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
         Frequently Asked Questions
       </h2>
 
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {faqs.map((faq, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-sm">
+          <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <button
               onClick={() => toggleFaq(index)}
               className="w-full text-left px-4 py-4 flex justify-between items-start gap-3 hover:bg-gray-50 transition"
@@ -51,7 +51,7 @@ export default function PcpDropdown() {
                 {openIndex === index ? '−' : '+'}
               </span>
             </button>
-            
+
             {openIndex === index && (
               <div className="px-4 pb-4 pt-2">
                 <p className="text-gray-600 text-sm leading-relaxed pl-6">
