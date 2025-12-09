@@ -51,7 +51,8 @@ export default function PersonalDetails() {
     router.push("/contact-details");
   };
 
-  const inputClasses = "px-4 py-3 bg-gray-100 rounded-lg mb-3 text-gray-900";
+  const inputClasses =
+    "px-4 py-3 bg-gray-100 rounded-none mb-3 text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500";
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
@@ -115,7 +116,7 @@ export default function PersonalDetails() {
             maxLength={2}
             value={dobDay}
             onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+            className="px-4 py-3 bg-gray-100 rounded-none text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
           <input
             type="text"
@@ -124,7 +125,7 @@ export default function PersonalDetails() {
             maxLength={2}
             value={dobMonth}
             onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+            className="px-4 py-3 bg-gray-100 rounded-none text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
           <input
             type="text"
@@ -133,7 +134,7 @@ export default function PersonalDetails() {
             maxLength={4}
             value={dobYear}
             onChange={handleChange}
-            className="px-4 py-3 bg-gray-100 rounded-lg text-gray-900"
+            className="px-4 py-3 bg-gray-100 rounded-none text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
         </div>
         {(errors.dobDay || errors.dobMonth || errors.dobYear) && (
