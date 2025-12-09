@@ -68,7 +68,6 @@ export default function ClaimSuccess() {
                 fill
                 className="object-cover"
               />
-              
             </div>
 
             <button
@@ -186,18 +185,27 @@ export default function ClaimSuccess() {
 
           <p className="text-sm mb-3">Speed up your claim by uploading your driving licence (or passport).</p>
 
-          <button
-            type="button"
-            className="w-full bg-cyan-100 text-cyan-800 py-3 rounded font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 12l5-5 5 5M12 7v10" />
-            </svg>
-            <span>Click to Upload</span>
-          </button>
-          <button type="submit" disabled aria-disabled="true" className="w-full bg-gray-300 text-gray-600 py-3 rounded cursor-not-allowed font-semibold">
-            Submit &gt;
-          </button>
+          {/* Buttons with equal spacing */}
+          <div className="flex flex-col space-y-3">
+            <button
+              type="button"
+              className="w-full bg-cyan-100 text-cyan-800 py-3 rounded font-medium flex items-center justify-center space-x-2 hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 12l5-5 5 5M12 7v10" />
+              </svg>
+              <span>Click to Upload</span>
+            </button>
+
+            <button
+              type="submit"
+              disabled
+              aria-disabled="true"
+              className="w-full bg-gray-300 text-gray-600 py-3 rounded cursor-not-allowed font-semibold"
+            >
+              Submit &gt;
+            </button>
+          </div>
         </section>
 
         {/* Details summary */}
