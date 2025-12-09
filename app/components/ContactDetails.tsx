@@ -22,7 +22,6 @@ export default function ContactDetails() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     dispatch(setField({ field: name as keyof typeof form, value }));
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
@@ -45,6 +44,8 @@ export default function ContactDetails() {
   };
 
   const isReady = form.mobile.trim() !== "" && form.email.trim() !== "";
+
+  const inputClasses = "w-full px-4 py-3 bg-gray-100 rounded-none border mb-2 text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-pink-500";
 
   return (
     <div className="min-h-screen bg-white">
@@ -115,7 +116,7 @@ export default function ContactDetails() {
           placeholder="Enter Mobile Number"
           value={form.mobile}
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-gray-100 rounded-lg mb-1 border"
+          className={inputClasses}
         />
         {errors.mobile && <p className="text-red-500 text-sm mb-2">{errors.mobile}</p>}
 
@@ -128,7 +129,7 @@ export default function ContactDetails() {
           placeholder="Enter Email Address"
           value={form.email}
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-gray-100 rounded-lg mb-1 border"
+          className={inputClasses}
         />
         {errors.email && <p className="text-red-500 text-sm mb-4">{errors.email}</p>}
 
