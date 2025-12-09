@@ -39,10 +39,12 @@ export default function ClaimSuccess() {
       <main className="max-w-md mx-auto px-4 py-2 space-y-2 w-full">
 
         {/* Congratulations */}
-        <section className="flex items-center">
+        <section className="flex items-center justify-between">
           <h1 className="text-2xl font-extrabold leading-tight flex-1">
             Congratulations <span className="font-normal">{firstName} {surname}</span>
           </h1>
+          {/* Party popper icon */}
+          <span className="text-2xl">🎉</span>
         </section>
 
         <p className="text-base font-semibold mb-0.5">your claim is now submitted.</p>
