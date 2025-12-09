@@ -3,10 +3,12 @@
 import { useState, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import Image from 'next/image';
 import Header from './Header';
 import RegulatorInfo from './RegulatorInfo';
 import PrivacyInfo from './PrivacyInfo';
 import Footer from '../components/Footer';
+import NumberPlate from '../../public/number-plate.svg';
 
 const starCount = 5;
 
@@ -57,23 +59,28 @@ export default function ClaimSuccess() {
           <p className="text-sm mb-2">Use the registration checker below to find other agreements you know you’ve had.</p>
           <form onSubmit={handleSubmit} className="space-y-3">
             <label htmlFor="reg" className="sr-only">Enter Vehicle Registration Number</label>
-            <div className="flex items-center bg-yellow-400 rounded w-full px-3 py-2 tracking-widest font-extrabold text-xl">
-              <div className="inline-flex items-center justify-center bg-blue-900 text-white rounded-sm w-10 h-[38px] mr-3 font-sans font-normal">
-                GB
-              </div>
+
+            {/* Number Plate SVG Input */}
+            <div className="relative w-full h-14 rounded overflow-hidden border border-gray-300">
+              <Image
+                src={NumberPlate}
+                alt="Numberplate"
+                fill
+                className="object-cover"
+              />
               <input
                 id="reg"
                 type="text"
                 maxLength={7}
                 spellCheck={false}
-                placeholder="SG65 YBA"
-                className="bg-transparent w-full focus:outline-none tracking-widest font-extrabold"
+                placeholder="" // removed placeholder
+                className="absolute inset-0 w-full h-full bg-transparent focus:outline-none"
                 value={regNumber}
                 onChange={(e) => setRegNumber(e.target.value.toUpperCase())}
-                style={{ letterSpacing: '0.4em' }}
                 aria-label="Vehicle Registration Number"
               />
             </div>
+
             <button
               type="submit"
               disabled={!isRegValid}
@@ -85,11 +92,9 @@ export default function ClaimSuccess() {
         </section>
 
         {/* Next steps */}
-        {/* Next steps */}
         <section>
           <div className="flex items-center justify-between mb-2">
             <h2 className="font-semibold text-base">Next steps</h2>
-            {/* SVG icon on the right */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6 text-blue-700 flex-shrink-0"
@@ -99,16 +104,8 @@ export default function ClaimSuccess() {
               strokeWidth={2}
               aria-hidden="true"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12h6M9 16h6"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6M9 16h6" />
             </svg>
           </div>
 
@@ -128,7 +125,6 @@ export default function ClaimSuccess() {
             />
           </div>
         </section>
-
 
         {/* Help your close ones */}
         <section>
@@ -191,7 +187,6 @@ export default function ClaimSuccess() {
         <section>
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-semibold text-base">Speed Things Up!</h3>
-            {/* ID card icon aligned on right */}
             <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-cyan-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <line x1="7" y1="9" x2="11" y2="9" strokeLinecap="round" strokeLinejoin="round" />
               <line x1="7" y1="13" x2="17" y2="13" strokeLinecap="round" strokeLinejoin="round" />
@@ -232,9 +227,6 @@ export default function ClaimSuccess() {
             </li>
           </ul>
         </section>
-
-        {/* Legal obligations */}
-        
       </main>
 
       {/* Full-width sections */}
